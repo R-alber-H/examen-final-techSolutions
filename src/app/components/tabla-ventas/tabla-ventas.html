@@ -1,0 +1,27 @@
+<table class="table">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">Nro Venta</th>
+      <th scope="col">Cliente</th>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Precio Total</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Productos</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (venta of ventas; track venta.nroVenta) {
+      <tr class="text-center">
+      <th scope="row">{{venta.nroVenta}}</th>
+      <td>{{venta.cliente}}</td>
+      <td>{{venta.cantidad}}</td>
+      <td>{{venta.precioTotal}}</td>
+      <td>{{venta.fecha}}</td>
+      <td><button class="btn btn-sm btn-warning">Ver productos</button></td>
+    </tr>
+    }
+    
+    
+  </tbody>
+</table>
+

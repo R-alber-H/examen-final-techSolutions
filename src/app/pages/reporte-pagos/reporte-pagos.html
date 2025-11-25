@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="p-4 mb-3 rounded-3 bg-light">
+    <h2 class="text-center">Modulo de Reportes</h2>
+  </div>
+
+  <div class="p-3 bg-light rounded-3 d-flex justify-content-around align-items-center">
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Seleccione un mes para el reporte</label>
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Mes</option>
+          <option value="1">Enero</option>
+          <option value="2">Febrero</option>
+          <option value="3">Marzo</option>
+          <option value="4">Abril</option>
+          <option value="5">Mayo</option>
+        </select>
+      </div>
+       <div class="mb-3">
+        <label class="form-label fw-semibold">Seleccione un año para el reporte</label>
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Año</option>
+          <option value="1">2020</option>
+          <option value="2">2021</option>
+          <option value="3">2022</option>
+          <option value="4">2023</option>
+          <option value="5">2024</option>
+          <option value="6">2025</option>
+        </select>
+      </div>
+    <button type="button" class="btn btn-primary" (click)="generarReporte()">Generar Reporte</button>
+  </div>
+</div>

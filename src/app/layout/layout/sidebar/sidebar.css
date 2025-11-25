@@ -1,0 +1,36 @@
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #0B0819;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+
+.logo{
+    width: 130px;
+    border-radius: 12px;
+}
+.sidebar-link.active {
+  background: #CD3301;
+  color: #eeeef3;
+  transform: translateX(5px);
+  /* font-weight: bold; */
+}
+
+.sidebar-link {
+    color: #555151;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    width: 180px;
+    overflow: hidden;
+}
+
+.sidebar-link:hover {
+    color: #eeeef3;
+    background: #CD3301;
+    transform: translateX(5px);
+}

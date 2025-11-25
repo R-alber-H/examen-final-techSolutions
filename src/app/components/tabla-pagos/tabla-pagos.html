@@ -1,0 +1,25 @@
+<table class="table">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">Id Metodo de Pago</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Cambiar estado</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (metodo of metodoPago; track metodo.id) {
+    <tr class="text-center">
+      <th scope="row">{{metodo.id}}</th>
+      <td>{{metodo.nombre}}</td>
+      <td>{{metodo.estado}}</td>
+      <td>
+        <div class="form-check form-switch  d-flex justify-content-center">
+          <input class="form-check-input" type="checkbox" role="switch" checked>
+        </div>
+      </td>
+    </tr>
+    }
+
+  </tbody>
+</table>

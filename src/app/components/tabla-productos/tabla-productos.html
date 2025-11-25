@@ -1,0 +1,21 @@
+<table class="table mt-4">
+  <thead>
+    <tr class="text-center">
+      <th scope="col">Id Producto</th>
+      <th scope="col">Nombre </th>
+      <th scope="col">Precio Venta</th>
+      <th scope="col">Imagen</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (producto of productos; track producto.id) {
+      <tr class="text-center">
+      <th scope="row">{{producto.id}}</th>
+      <td>{{producto.nombre}}</td>
+      <td>{{producto.precio}}</td>
+      <td><img style="width: 70px;" src="{{producto.imagen}}" alt=""></td>
+    </tr>
+    }
+    
+  </tbody>
+</table>

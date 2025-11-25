@@ -1,0 +1,30 @@
+.banner {
+     background: linear-gradient(180deg,
+               #260B1A 0%,
+               #66293C 50%,
+               #2E2640 100%);
+     border-radius: 20px;
+}
+
+h1 {
+     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+     font-family: 'Fredericka the Great', monospace;
+     font-size: 4rem;
+}
+
+.text-1 {
+     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.contenido {
+     background-image: url("../../../../public/fondo.jpg");
+     background-size: cover;
+     background-repeat: no-repeat;
+}
+
+.banner2 {
+     background-color: #FF7D0B;
+     height: 500px;
+     border-top-left-radius: 100px;
+     border-bottom-right-radius: 100px;
+}
