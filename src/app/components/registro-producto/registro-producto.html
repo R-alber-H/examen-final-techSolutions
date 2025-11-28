@@ -1,3 +1,4 @@
+
 <div #modal class="modal fade" tabindex="-1">
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
@@ -8,29 +9,35 @@
       </div>
 
       <div class="modal-body">
-        <form>
+        <form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+
           <div class="mb-3">
             <label class="form-label fw-semibold">Nombre del Producto</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" formControlName="nombre">
           </div>
 
           <div class="mb-3">
             <label class="form-label fw-semibold">Precio de venta</label>
-            <input type="number" class="form-control">
+            <input type="number" class="form-control" formControlName="precioVenta">
           </div>
 
           <div class="mb-3">
             <label class="form-label fw-semibold">Precio de compra</label>
-            <input type="number" class="form-control">
+            <input type="number" class="form-control" formControlName="precioCompra">
           </div>
 
           <div class="mb-3">
-            <label class="form-label fw-semibold">Imagen del producto</label>
-            <input type="text" class="form-control">
+            <label class="form-label fw-semibold">Stock</label>
+            <input type="number" class="form-control" formControlName="stock">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">URL Imagen del producto</label>
+            <input type="text" class="form-control" formControlName="imagenUrl"placeholder="https://ejemplo.com/imagen.jpg">
           </div>
 
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Registrar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="productoForm.invalid">Registrar</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
           </div>
         </form>

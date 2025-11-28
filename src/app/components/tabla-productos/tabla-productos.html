@@ -4,16 +4,20 @@
       <th scope="col">Id Producto</th>
       <th scope="col">Nombre </th>
       <th scope="col">Precio Venta</th>
+      <th scope="col">Precio Compra</th>
+      <th scope="col">Stock</th>
       <th scope="col">Imagen</th>
     </tr>
   </thead>
   <tbody>
-    @for (producto of productos; track producto.id) {
-      <tr class="text-center">
+    @for (producto of (productos$ | async); track producto.id) {
+      <tr class="text-center ">
       <th scope="row">{{producto.id}}</th>
       <td>{{producto.nombre}}</td>
-      <td>{{producto.precio}}</td>
-      <td><img style="width: 70px;" src="{{producto.imagen}}" alt=""></td>
+      <td>{{producto.precioVenta}}</td>
+      <td>{{producto.precioCompra}}</td>
+      <td>{{producto.stock}}</td>
+      <td><img style="width: 60px;" src={{producto.imagenUrl}} alt=""></td>
     </tr>
     }
     

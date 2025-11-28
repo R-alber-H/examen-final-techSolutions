@@ -1,58 +1,55 @@
 
 <h3 class="mb-3">Productos Seleccionados</h3>
-<div class="col-12 d-flex justify-content-center bg-body-secondary rounded-4 p-4">
 
-  <div class="col-7 me-5 ">
-    <div class="card mb-3">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="audifonos.jpg" class="img-fluid rounded-start ms-4" style="height: 180px;" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title mt-3">Audifonos Bluetooth Xiaomi Redmi Buds 6 Play</h5>
-            <p class="card-text"><i class="bi bi-tag me-2"></i>Precio:$50.00</p>
-            <button class="btn btn-outline-danger"><i class="bi bi-trash me-2"></i>Eliminar</button>
+@if (productosCarrito.length === 0) {
+  <div class="alert alert-info text-center">
+    <h4>Tu carrito está vacío</h4>
+    <p>Agrega productos desde el catálogo</p>
+  </div>
+} @else {
+  <div class="col-12 d-flex justify-content-center bg-body-secondary rounded-4 p-4">
+    <div class="col-7 me-5">
+      @for (producto of productosCarrito; track producto.id) {
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-4">
+           <img [src]="producto.imagenUrl" class="img-fluid rounded-start ms-4 imagen p-5"  [alt]="producto.nombre">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title mt-3">{{ producto.nombre }}</h5>
+                <p class="card-text"><i class="bi bi-tag me-2"></i>Precio: ${{ producto.precioVenta}}</p>
+                <button class="btn btn-outline-danger" (click)="eliminarProducto(producto.id)"><i class="bi bi-trash me-2"></i>Eliminar</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      }
     </div>
 
-    <div class="card mb-3">
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img src="audifonos.jpg" class="img-fluid rounded-start ms-4" style="height: 180px;" alt="...">
+    <div class="col-4 p-3 bg-white rounded-4">
+      <h4 class="mb-3">Realice su pago</h4>
+      <hr>
+      <form>
+        <div class="mb-3">
+          <p><span class="fw-semibold">Cantidad de productos: </span>{{ productosCarrito.length }}</p>
+          <p><span class="fw-semibold">Monto total: </span>${{ total.toFixed(2) }}</p>
         </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title mt-3">Audifonos Bluetooth Xiaomi Redmi Buds 6 Play</h5>
-            <p class="card-text"><i class="bi bi-tag me-2"></i>Precio:$50.00</p>
-            <button class="btn btn-outline-danger"><i class="bi bi-trash me-2"></i>Eliminar</button>
-          </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Seleccione el método de pago</label>
+          <select class="form-select" [(ngModel)]="metodoPago" name="metodoPago">
+            <option value="">Método de pago</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Plin">Plin</option>
+            <option value="Yape">Yape</option>
+          </select>
         </div>
-      </div>
+
+        <button type="button" class="btn btn-primary w-100" (click)="comprar()">
+          Comprar Todo
+        </button>
+      </form>
     </div>
   </div>
-
-  <div class="col-4 p-3 bg-white rounded-4">
-    <h4 class="mb-3">Realice su pago</h4>
-    <hr>
-    <form>
-      <div class="mb-3">
-        <p><span class="fw-semibold">Monto total: </span>$100.00</p>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label fw-semibold">Seleccione el metodo de pago</label>
-        <select class="form-select" aria-label="Default select example">
-          <option selected>Metodo de pago</option>
-          <option value="1">Pay Pal</option>
-          <option value="2">Plin</option>
-          <option value="3">Yape</option>
-        </select>
-      </div>
-
-      <button type="button" class="btn btn-primary" (click)="comprar()">Comprar Todo</button>
-    </form>
-  </div>
-</div>
+}

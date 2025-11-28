@@ -1,13 +1,23 @@
-import { Component } from '@angular/core';
-import { productos } from '../../datos/productos';
+
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ProductosService } from '../../services/producto/productos';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tabla-productos',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './tabla-productos.html',
   styleUrl: './tabla-productos.css',
 })
-export class TablaProductos {
-  productos = productos;
+export class TablaProductos implements OnInit {
 
+  productos$!: Observable<any[]>;
+
+  constructor(private productosService: ProductosService) {}
+
+  ngOnInit(): void {
+    this.productos$ = this.productosService.getProductos();
+  }
 }

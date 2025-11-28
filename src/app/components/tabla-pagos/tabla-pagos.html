@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    @for (metodo of metodoPago; track metodo.id) {
+    @for (metodo of (metodosPago$ | async); track metodo.id) {
     <tr class="text-center">
       <th scope="row">{{metodo.id}}</th>
       <td>{{metodo.nombre}}</td>

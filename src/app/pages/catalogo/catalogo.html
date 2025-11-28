@@ -3,21 +3,34 @@
   <div class="bg-dark rounded-4 mb-4 p-4 d-flex justify-content-between align-items-center">
     <h3 class="text-light  ">Catalogo de Productos</h3>
     <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search"/>
-        <button class="btn btn-outline-light" type="submit">Buscar</button>
-      </form>
+      <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search" />
+      <button class="btn btn-outline-light" type="submit">Buscar</button>
+    </form>
   </div>
 
   <div class="row">
-    @for (producto of productos; track producto.id) {
+    @for (producto of (productos$ | async); track producto.id) {
     <div class="col-lg-3 mb-4 d-flex justify-content-center">
       <div class="card" style="width: 20rem;">
-        <img [src]="producto.imagen" class="img-fluid w-100 imagen">
-        <div class="card-body">
-          <h5 class="card-title">{{ producto.nombre }}</h5>
-          <p class="card-text">Precio: ${{ producto.precio }}</p>
-          <button class="btn btn-primary"> <i class="bi bi-cart-plus me-2"></i>Agregar al carrito</button>
+        <img src={{producto.imagenUrl}} class="img-fluid w-100 imagen p-5">
+        <div class="card-body d-flex flex-column justify-content-between" style="height: 100%;">
+          <div>
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text">Precio: ${{producto.precioVenta}}</p>
+          </div>
+          <div>
+            @if (estaEnCarrito(producto.id)) {
+            <button class="btn btn-success mt-auto" disabled>
+              <i class="bi bi-check-circle me-2"></i>En el carrito
+            </button>
+            } @else {
+            <button class="btn btn-primary mt-auto" (click)="agregarAlCarrito(producto)">
+              <i class="bi bi-cart-plus me-2"></i>Agregar al carrito
+            </button>
+            }
+          </div>
         </div>
+
       </div>
     </div>
     }
