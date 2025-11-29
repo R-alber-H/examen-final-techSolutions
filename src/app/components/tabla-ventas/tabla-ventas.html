@@ -5,23 +5,55 @@
       <th scope="col">Cliente</th>
       <th scope="col">Metodo Pago</th>
       <th scope="col">Precio Total</th>
-      <th scope="col">Fecha</th>
+      <th scope="col">Fecha/Hora</th>
       <th scope="col">Productos</th>
     </tr>
   </thead>
   <tbody>
-    @for (pedido of (pedidos$ | async); track pedido.Id) {
+    @for (pedido of (pedidos$ | async); track pedido.id) {
       <tr class="text-center">
-      <th scope="row">a</th>
-      <td>prueba</td>
-      <td>prueba</td>
-      <td>prueba</td>
-      <td>prueba</td>
-      <td><button class="btn btn-sm btn-warning">Ver productos</button></td>
+      <th scope="row">{{pedido.id}}</th>
+      <td>{{pedido.cliente.nombre}}</td>
+      <td>{{pedido.metodoPago.nombre}}</td>
+      <td>S/.{{ calcularTotalPedido(pedido) }}</td>
+      <td>{{ pedido.fecha_creacion | date:'short' }}</td>
+      <td><button class="btn btn-sm btn-warning" (click)="verProductos(pedido)">Ver productos</button></td>
     </tr>
     }
-    
-    
   </tbody>
 </table>
 
+<div class="modal fade" id="modalProductos" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Productos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        @if (pedidoSeleccionado) {
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (detalle of pedidoSeleccionado.detallePedido; track detalle.producto.id) {
+                <tr>
+                  <td>{{ detalle.producto.nombre }}</td>
+                  <td>{{ detalle.cantidad }}</td>
+                  <td>S/{{ detalle.producto.precioVenta }}</td>
+                  <td>S/{{ detalle.subTotal }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+      </div>
+    </div>
+  </div>
+</div>
