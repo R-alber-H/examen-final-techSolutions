@@ -1,9 +1,9 @@
-export interface Producto {
-  id: number;
-  nombre: string;
-  precioVenta: number; 
-  precioCompra: number;
-  stock: number;
-  imagenUrl?: string;
-  fecha_creacion:Date;
-}
+// export interface Producto {
+//   id: number;
+//   nombre: string;
+//   precioVenta: number; 
+//   precioCompra: number;
+//   stock: number;
+//   imagenUrl?: string;
+//   fecha_creacion:Date;
+// }

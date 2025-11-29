@@ -16,5 +16,11 @@ export class MetodoPagoService {
           tap(data => console.log('Metodos obtenidos:', data))
         );
   }
+
+  cambiarEstado(id: number): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, {}).pipe(
+      tap(data => console.log('Estado actualizado:', data))
+    );
+  }
   
 }

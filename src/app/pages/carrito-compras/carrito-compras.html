@@ -57,11 +57,13 @@
         <select class="form-select" [(ngModel)]="idMetodoPago" name="idMetodoPago">
           <option [ngValue]="null">Método de pago</option>
           @for (metodo of (metodoPago$ | async); track metodo.id) {
+          @if (metodo.estado === 'ACTIVO') {
           <option [ngValue]="metodo.id">{{ metodo.nombre }}</option>
+          }
           }
         </select>
       </div>
-      
+
       <button type="button" class="btn btn-primary w-100" (click)="comprar()">
         Comprar Todo
       </button>

@@ -15,12 +15,10 @@ h1 {
 .text-1 {
      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
-
+/* 
 .contenido {
-     background-image: url("../../../../public/fondo.jpg");
-     background-size: cover;
-     background-repeat: no-repeat;
-}
+     background-color: white;
+} */
 
 .banner2 {
      background-color: #FF7D0B;

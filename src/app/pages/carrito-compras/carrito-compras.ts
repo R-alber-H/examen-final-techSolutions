@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -5,6 +6,7 @@ import { CarritoService } from '../../services/carrito/carrito-compras';
 import { Producto } from '../../models/producto';
 import { ClienteService } from '../../services/cliente/cliente-service';
 import { MetodoPagoService } from '../../services/metodoPago/metodo-pago-service';
+import { PedidoService } from '../../services/pedidos/pedido-service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -25,7 +27,12 @@ export class CarritoCompras implements OnInit {
     celular: ''
   };
 
-  constructor(private carritoService: CarritoService, clienteService: ClienteService, private metodoPagoService: MetodoPagoService) { }
+  constructor(
+    private carritoService: CarritoService,
+    private clienteService: ClienteService,
+    private metodoPagoService: MetodoPagoService,
+    private pedidoService: PedidoService
+  ) { }
 
   ngOnInit(): void {
     // ssuscribirse al carrito para obtener actualizaciones en tiempo real
@@ -35,8 +42,6 @@ export class CarritoCompras implements OnInit {
     });
 
     this.metodoPago$ = this.metodoPagoService.getMetodoPago();
-
-    console.log("productos ccarrito", this.productosCarrito)
   }
 
   eliminarProducto(productoId: number): void {
@@ -47,12 +52,13 @@ export class CarritoCompras implements OnInit {
 
   comprar(): void {
 
-    console.log("Cliente a enviar:", this.cliente);
-
-    // this.clienteService.crearCliente(this.cliente);
-
     if (this.productosCarrito.length === 0) {
       alert('El carrito está vacío');
+      return;
+    }
+
+    if (!this.cliente.nombre || !this.cliente.dni || !this.cliente.celular) {
+      alert('Por favor complete todos los datos del cliente');
       return;
     }
 
@@ -61,21 +67,32 @@ export class CarritoCompras implements OnInit {
       return;
     }
 
-    const detalle = this.productosCarrito.map(producto => ({
-      idProducto: producto.id,
-      cantidad: 1,
-      subTotal: producto.precioVenta
-    }));
+    this.clienteService.crearCliente(this.cliente).subscribe(clienteCreado => {
+      console.log("Cliente creado:", clienteCreado);
 
-    const pedidoSimulado = {
-      idCliente: "se generar despues de crear al cliente",
-      idMetodoPago: this.idMetodoPago,
-      detallePedido: detalle
-    };
-    console.log("Pedido que se enviará:", pedidoSimulado);
-    
-    alert(`Compra realizada por $${this.total.toFixed(2)} mediante ${this.idMetodoPago}`);
+      const detalle = this.productosCarrito.map(producto => ({
+        idProducto: producto.id,
+        cantidad: 1,
+        subTotal: producto.precioVenta
+      }));
+
+      const pedido = {
+        idCliente: clienteCreado.id,
+        idMetodoPago: this.idMetodoPago!,
+        detallePedido: detalle
+      };
+
+      this.pedidoService.crearPedido(pedido).subscribe(pedidoCreado => {
+        console.log("Pedido creado:", pedidoCreado);
+        alert(`¡Compra realizada con éxito!\nTotal: $${this.total.toFixed(2)}`);
+        this.limpiarFormulario();
+      });
+    });
+  }
+
+  limpiarFormulario(): void {
     this.carritoService.vaciarCarrito();
-    this.idMetodoPago = 0;
+    this.cliente = { nombre: '', dni: '', celular: '' };
+    this.idMetodoPago = null;
   }
 }

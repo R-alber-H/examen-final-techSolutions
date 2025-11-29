@@ -11,8 +11,8 @@ export class PedidoService {
 
    constructor(private http: HttpClient) { }
 
-   getPedidos(): Observable<PedidoResponse> {
-    return this.http.get<PedidoResponse>(this.apiUrl).pipe(
+   getPedidos(): Observable<PedidoResponse[]> {
+    return this.http.get<PedidoResponse[]>(this.apiUrl).pipe(
           tap(data => console.log('Pedidos obtenidos:', data))
         );
   }
