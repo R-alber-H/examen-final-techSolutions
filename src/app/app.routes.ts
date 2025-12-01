@@ -9,6 +9,7 @@ import { Productos } from './pages/productos/productos';
 import { Ventas } from './pages/ventas/ventas';
 import { ReportePagos } from './pages/reporte-pagos/reporte-pagos';
 import { MetodosPagos } from './pages/metodos-pagos/metodos-pagos';
+import { EstrategiaPreccio } from './pages/estrategia-preccio/estrategia-preccio';
 
 export const routes: Routes = [
 
@@ -30,6 +31,7 @@ export const routes: Routes = [
       { path: 'reporte', component: ReportePagos },
       { path: 'productos', component:Productos },
       { path: 'metodo_pago', component:MetodosPagos },
+      { path: 'estrategia_precio', component:EstrategiaPreccio },
     ],
   },
 

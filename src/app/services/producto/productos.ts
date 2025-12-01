@@ -29,15 +29,20 @@ export class ProductosService {
     return this.productos$;
   }
 
+ recargarProductos(): void {
+  this.http.get<any[]>(this.apiUrl).subscribe(productos => {
+    this.productosSubject.next(productos);
+  });
+}
+
+
   crearProducto(producto: any): Observable<any> {
-    return this.http.post(this.apiUrl, producto).pipe(
-      tap(productoCreado => {
-        console.log('Producto creado:', productoCreado);
-      
-        const productosActuales = this.productosSubject.value;
-        this.productosSubject.next([...productosActuales, productoCreado]);
-      })
-    );
-  }
+  return this.http.post(this.apiUrl, producto).pipe(
+    tap(productoCreado => {
+      const productosActuales = this.productosSubject.value;
+      this.productosSubject.next([...productosActuales, productoCreado]);
+    })
+  );
+}
 
 }

@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="p-4 mb-4 rounded-3 bg-light shadow-sm">
+    <h2 class="text-center">Estrategia de Precio</h2>
+  </div>
+
+  <div class="p-4 bg-light rounded-3 shadow-sm">
+    <form [formGroup]="estrategiaForm" (ngSubmit)="guardarEstrategia()">
+
+      <h5 class="mb-4">Seleccione la estrategia de precio</h5>
+      <div class="d-flex justify-content-around flex-wrap mb-4">
+        <div class="form-check m-2">
+          <input class="form-check-input" type="radio" formControlName="estrategiaPrecio" value="ESTANDAR"
+            id="radioDefault1">
+          <label class="form-check-label" for="radioDefault1">ESTÁNDAR</label>
+        </div>
+
+        <div class="form-check m-2">
+          <input class="form-check-input" type="radio" formControlName="estrategiaPrecio" value="DESCUENTO"
+            id="radioDefault2" checked>
+          <label class="form-check-label" for="radioDefault2">DESCUENTO</label>
+        </div>
+
+        <div class="form-check m-2">
+          <input class="form-check-input" type="radio" formControlName="estrategiaPrecio" value="DINAMICO"
+            id="radioDefault3">
+          <label class="form-check-label" for="radioDefault3">DINAMICO</label>
+        </div>
+      </div>
+
+      <h5 class="mb-4 mt-4">Configuración</h5>
+      <div class="row g-3 justify-content-center mb-4">
+        <div class="col-md-5">
+          <label class="form-label">Descuento (%)</label>
+          <input type="number" class="form-control" formControlName="porcentajeDescuentoGlobal">
+
+        </div>
+        <div class="col-md-5">
+          <label class="form-label">Multiplicador de precio</label>
+          <input type="number" class="form-control" formControlName="factorDinamicoGlobal">
+
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-primary" type="submit" [disabled]="estrategiaForm.invalid">Guardar estrategia</button>
+      </div>
+
+    </form>
+  </div>
+</div>
