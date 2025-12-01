@@ -8,6 +8,7 @@ import { ClienteService } from '../../services/cliente/cliente-service';
 import { MetodoPagoService } from '../../services/metodoPago/metodo-pago-service';
 import { PedidoService } from '../../services/pedidos/pedido-service';
 import { Observable } from 'rxjs';
+import { SweetAlertService } from '../../sweetalert/sweetalert-servicio';
 
 @Component({
   selector: 'app-carrito-compras',
@@ -58,17 +59,19 @@ export class CarritoCompras implements OnInit {
     }
 
     if (!this.cliente.nombre || !this.cliente.dni || !this.cliente.celular) {
-      alert('Por favor complete todos los datos del cliente');
+      // alert('Por favor complete todos los datos del cliente');
+      SweetAlertService.error('Por favor complete todos los datos del cliente')
       return;
     }
 
     if (this.idMetodoPago === null) {
-      alert('Por favor seleccione un método de pago');
+      SweetAlertService.error('Por favor seleccione un método de pago')
+      // alert('Por favor seleccione un método de pago');
       return;
     }
 
     this.clienteService.crearCliente(this.cliente).subscribe(clienteCreado => {
-      console.log("Cliente creado:", clienteCreado);
+      console.log("cliente creado:", clienteCreado);
 
       const detalle = this.productosCarrito.map(producto => ({
         idProducto: producto.id,
@@ -83,8 +86,9 @@ export class CarritoCompras implements OnInit {
       };
 
       this.pedidoService.crearPedido(pedido).subscribe(pedidoCreado => {
-        console.log("Pedido creado:", pedidoCreado);
-        alert(`¡Compra realizada con éxito!\nTotal: $${this.total.toFixed(2)}`);
+        // console.log("Pedido creado:", pedidoCreado);
+        // alert(`¡Compra realizada con éxito!\nTotal: $${this.total.toFixed(2)}`);
+        SweetAlertService.exito('¡Compra realizada con éxito!')
         this.limpiarFormulario();
       });
     });
