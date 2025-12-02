@@ -15,10 +15,46 @@ import { Producto } from '../../models/producto';
 export class TablaProductos implements OnInit {
 
   productos$!: Observable<Producto[]>;
+  paginacion$!: Observable<any>;  
 
   constructor(private productosService: ProductosService) {}
 
   ngOnInit(): void {
     this.productos$ = this.productosService.getProductos();
+    this.paginacion$ = this.productosService.getPaginacion(); 
   }
+
+  cambiarPagina(page: number): void {
+    this.productosService.cargarProductos(page);
+  }
+
+  paginaAnterior(currentPage: number): void {
+    if (currentPage > 0) {
+      this.cambiarPagina(currentPage - 1);
+    }
+  }
+
+  paginaSiguiente(currentPage: number, totalPages: number): void {
+    if (currentPage < totalPages - 1) {
+      this.cambiarPagina(currentPage + 1);
+    }
+  }
+
+  obtenerPaginas(currentPage: number, totalPages: number): number[] {
+    const paginas: number[] = [];
+    const maxPaginas = 5;
+    let inicio = Math.max(0, currentPage - Math.floor(maxPaginas / 2));
+    let fin = Math.min(totalPages, inicio + maxPaginas);
+    
+    if (fin - inicio < maxPaginas) {
+      inicio = Math.max(0, fin - maxPaginas);
+    }
+    
+    for (let i = inicio; i < fin; i++) {
+      paginas.push(i);
+    }
+    
+    return paginas;
+  }
+
 }

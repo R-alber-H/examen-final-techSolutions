@@ -1,7 +1,8 @@
+
 <div class="container">
 
   <div class="bg-dark rounded-4 mb-4 p-4 d-flex justify-content-between align-items-center">
-    <h3 class="text-light  ">Catalogo de Productos</h3>
+    <h3 class="text-light">Catalogo de Productos</h3>
     <form class="d-flex" role="search">
       <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search" />
       <button class="btn btn-outline-light" type="submit">Buscar</button>
@@ -12,7 +13,7 @@
     @for (producto of (productos$ | async); track producto.id) {
     <div class="col-lg-3 mb-4 d-flex justify-content-center">
       <div class="card" style="width: 20rem;">
-        <img src={{producto.imagenUrl}} class="img-fluid w-100 imagen p-5">
+        <img [src]="producto.imagenUrl" class="img-fluid w-100 imagen p-5" [alt]="producto.nombre">
         <div class="card-body d-flex flex-column justify-content-between" style="height: 100%;">
           <div>
             <h5 class="card-title">{{ producto.nombre }}</h5>
@@ -30,9 +31,37 @@
             }
           </div>
         </div>
-
       </div>
     </div>
     }
   </div>
+
+  @if (paginacion$ | async; as paginacion) {
+  @if (paginacion.totalPages > 1) {
+  <div class="d-flex justify-content-center mt-4 mb-4">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+
+        <li class="page-item" [class.disabled]="paginacion.currentPage === 0">
+          <a class="page-link" (click)="paginaAnterior(paginacion.currentPage)" style="cursor: pointer;">Previous</a>
+        </li>
+
+        @for (page of obtenerPaginas(paginacion.currentPage, paginacion.totalPages); track page) {
+        <li class="page-item" [class.active]="page === paginacion.currentPage">
+          <a class="page-link" (click)="cambiarPagina(page)" style="cursor: pointer;">{{ page + 1 }}</a>
+        </li>
+        }
+
+        <li class="page-item" [class.disabled]="paginacion.currentPage === paginacion.totalPages - 1">
+          <a class="page-link" (click)="paginaSiguiente(paginacion.currentPage, paginacion.totalPages)"
+            style="cursor: pointer;">Next</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  }
+  }
+
 </div>
+
+
