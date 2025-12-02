@@ -1,25 +1,54 @@
-<table class="table mt-4">
-  <thead>
-    <tr class="text-center">
-      <th scope="col">Id Producto</th>
-      <th scope="col">Nombre </th>
-      <th scope="col">Precio Venta(S/)</th>
-      <th scope="col">Precio Compra(S/)</th>
-      <th scope="col">Stock</th>
-      <th scope="col">Imagen</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (producto of (productos$ | async); track producto.id) {
-      <tr class="text-center ">
-      <th scope="row">{{producto.id}}</th>
-      <td>{{producto.nombre}}</td>
-      <td>{{producto.precioVenta}}</td>
-      <td>{{producto.precioCompra}}</td>
-      <td>{{producto.stock}}</td>
-      <td><img style="width: 60px;" src={{producto.imagenUrl}} alt=""></td>
-    </tr>
+
+<div class="container-fluid">
+
+  <table class="table mt-4">
+    <thead>
+      <tr class="text-center">
+        <th scope="col">Id Producto</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Precio Venta(S/)</th>
+        <th scope="col">Precio Compra(S/)</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Imagen</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (producto of (productos$ | async); track producto.id) {
+      <tr class="text-center">
+        <th scope="row">{{producto.id}}</th>
+        <td>{{producto.nombre}}</td>
+        <td>{{producto.precioVenta}}</td>
+        <td>{{producto.precioCompra}}</td>
+        <td>{{producto.stock}}</td>
+        <td><img style="width: 60px;" [src]="producto.imagenUrl" [alt]="producto.nombre"></td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  @if (paginacion$ | async; as paginacion) {
+    @if (paginacion.totalPages > 1) {
+    <div class="d-flex justify-content-center mt-4 mb-4">
+      <nav aria-label="Paginación de productos">
+        <ul class="pagination">
+
+          <li class="page-item" [class.disabled]="paginacion.currentPage === 0">
+            <a class="page-link" (click)="paginaAnterior(paginacion.currentPage)" style="cursor: pointer;">Previous</a>
+          </li>
+
+          @for (page of obtenerPaginas(paginacion.currentPage, paginacion.totalPages); track page) {
+          <li class="page-item" [class.active]="page === paginacion.currentPage">
+            <a class="page-link" (click)="cambiarPagina(page)" style="cursor: pointer;">{{ page + 1 }}</a>
+          </li>
+          }
+
+          <li class="page-item" [class.disabled]="paginacion.currentPage === paginacion.totalPages - 1">
+            <a class="page-link" (click)="paginaSiguiente(paginacion.currentPage, paginacion.totalPages)"
+              style="cursor: pointer;">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
     }
-    
-  </tbody>
-</table>
+  }
+</div>
